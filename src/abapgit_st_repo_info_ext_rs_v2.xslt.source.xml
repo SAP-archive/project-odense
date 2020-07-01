@@ -1,0 +1,36 @@
+<?sap.transform simple?>
+<tt:transform xmlns:tt="http://www.sap.com/transformation-templates"
+ xmlns:cl="http://www.sap.com/abapxml/types/class-pool/CL_ABAPGIT_RES_REPO_INFO_EXT"
+ xmlns:abapgitexternalrepo="http://www.sap.com/adt/abapgit/externalRepo" template="main" version="0.1">
+ <tt:root name="REPOSITORY_EXTERNAL" type="cl:TY_RESPONSE_DATA"/>
+ <tt:template name="MAIN">
+  <abapgitexternalrepo:externalRepoInfo>
+   <abapgitexternalrepo:accessMode>
+    <tt:value ref="REPOSITORY_EXTERNAL.ACCESS_MODE"/>
+   </abapgitexternalrepo:accessMode>
+   <tt:cond>
+
+    <tt:loop ref=".REPOSITORY_EXTERNAL.BRANCHES">
+     <abapgitexternalrepo:branch>
+      <abapgitexternalrepo:sha1>
+       <tt:value ref="$ref.SHA1"/>
+      </abapgitexternalrepo:sha1>
+      <abapgitexternalrepo:name>
+       <tt:value ref="$ref.NAME"/>
+      </abapgitexternalrepo:name>
+      <abapgitexternalrepo:type>
+       <tt:value ref="$ref.TYPE"/>
+      </abapgitexternalrepo:type>
+      <abapgitexternalrepo:isHead>
+       <tt:value ref="$ref.IS_HEAD"/>
+      </abapgitexternalrepo:isHead>
+      <abapgitexternalrepo:displayName>
+       <tt:value ref="$ref.DISPLAY_NAME"/>
+      </abapgitexternalrepo:displayName>
+     </abapgitexternalrepo:branch>
+    </tt:loop>
+
+   </tt:cond>
+  </abapgitexternalrepo:externalRepoInfo>
+ </tt:template>
+</tt:transform>

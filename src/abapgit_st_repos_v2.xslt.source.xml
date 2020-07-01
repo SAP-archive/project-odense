@@ -1,0 +1,60 @@
+<?sap.transform simple?>
+<tt:transform xmlns:tt="http://www.sap.com/transformation-templates"
+ xmlns:cl="http://www.sap.com/abapxml/types/class-pool/cl_abapgit_res_repos"
+ xmlns:abapgitrepo="http://www.sap.com/adt/abapgit/repositories" template="abapgitrepositories" version="0.1">
+
+ <tt:root name="REPOSITORIES" type="cl:tt_repo_w_links"/>
+
+ <tt:include name="SADT_ATOM" template="atomLink"/>
+ <tt:template name="abapgitrepositories">
+  <abapgitrepo:repositories>
+   <tt:loop ref=".REPOSITORIES">
+    <abapgitrepo:repository>
+     <abapgitrepo:key>
+      <tt:value ref="$ref.key"/>
+     </abapgitrepo:key>
+     <abapgitrepo:package>
+      <tt:value ref="$ref.package"/>
+     </abapgitrepo:package>
+     <abapgitrepo:url>
+      <tt:value ref="$ref.url"/>
+     </abapgitrepo:url>
+     <abapgitrepo:branchName>
+      <tt:value ref="$ref.branch_name"/>
+     </abapgitrepo:branchName>
+     <abapgitrepo:createdBy>
+      <tt:value ref="$ref.created_by"/>
+     </abapgitrepo:createdBy>
+     <abapgitrepo:createdEmail>
+      <tt:value ref="$ref.created_email"/>
+     </abapgitrepo:createdEmail>
+     <abapgitrepo:createdAt>
+      <tt:value ref="$ref.created_at"/>
+     </abapgitrepo:createdAt>
+     <abapgitrepo:deserializedBy>
+      <tt:value ref="$ref.deserialized_by"/>
+     </abapgitrepo:deserializedBy>
+     <abapgitrepo:deserializedEmail>
+      <tt:value ref="$ref.deserialized_email"/>
+     </abapgitrepo:deserializedEmail>
+     <abapgitrepo:deserializedAt>
+      <tt:value ref="$ref.deserialized_at"/>
+     </abapgitrepo:deserializedAt>
+     <abapgitrepo:status>
+      <tt:value ref="$ref.status"/>
+     </abapgitrepo:status>
+     <abapgitrepo:statusText>
+      <tt:value ref="$ref.status_text"/>
+     </abapgitrepo:statusText>
+     <tt:cond check="exist($ref.links)">
+      <tt:cond check="not-initial($ref.links)">
+       <tt:apply name="atomLinks">
+        <tt:with-root name="atom_Links" ref="$ref.links"/>
+       </tt:apply>
+      </tt:cond>
+     </tt:cond>
+    </abapgitrepo:repository>
+   </tt:loop>
+  </abapgitrepo:repositories>
+ </tt:template>
+</tt:transform>

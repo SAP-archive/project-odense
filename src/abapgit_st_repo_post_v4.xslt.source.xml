@@ -1,0 +1,15 @@
+<?sap.transform simple?>
+<tt:transform xmlns:tt="http://www.sap.com/transformation-templates"
+ xmlns:cl="http://www.sap.com/abapxml/types/class-pool/CL_ABAPGIT_RES_REPOS"
+ xmlns:abapgitrepo="http://www.sap.com/adt/abapgit/repositories" template="REPO_V4" version="0.1">
+ <tt:root name="REPOSITORIES" type="cl:TT_REQUEST_DATA"/>
+ <tt:template name="REPO_V4">
+  <abapgitrepo:repositories>
+   <tt:loop name="line" ref=".REPOSITORIES">
+    <tt:call transformation="ABAPGIT_ST_REPO_POST_V3">
+     <tt:with-root name="REPOSITORY" ref="$line"/>
+    </tt:call>
+   </tt:loop>
+  </abapgitrepo:repositories>
+ </tt:template>
+</tt:transform>

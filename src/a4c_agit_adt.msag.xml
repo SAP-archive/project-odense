@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>A4C_AGIT_ADT</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>abapGit ADT Messages</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp;1&amp;2&amp;3&amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>&amp;1 &amp;2 &amp;3 &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Repository URL &amp;1 is already in use with package &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Transport request &amp;1 does not exists or is already released</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Transport request &amp;1 is not modifiable</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Transport request &amp;1 does not belong to user &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>No authorization to schedule program &amp;1 for user &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Could not submit report &amp;1 within job &amp;2; check system log for details</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Invalid credentials. Try using personal access token instead of password.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Use personal access token if you have permission to access the repository</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>A4C_AGIT_ADT</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Could not find this repository with the credentials provided.</TEXT>
+    </T100>
+   </T100>
+   <LONGTEXTS>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>A4C_AGIT_ADT008</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <TXTLINES>00011</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>A4C_AGIT_ADT008</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Für den Zugriff auf das Repository wurden ungültige Anmeldeinformationen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>verwendet.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Benutzer kann nicht authentifiziert werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Prüfen Sie Ihre Anmeldeinformationen und versuchen Sie es erneut.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Verwenden Sie ein persönliches Zugriffstoken mit geeigneten Scopes</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>anstelle eines Kennworts, wenn die 2-Faktor-Authentifizierung für Ihr</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Git-Konto aktiviert ist oder wenn Ihr Git-Hosting-Service keine</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Kennwortauthentifizierung unterstützt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Weitere Informationen über das Anlegen eines persönlichen Zugriffstokens</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>und die Konfiguration des Scopes dafür finden Sie in der Hi</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>lfedokumentation Ihres Git-Hosting-Service.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>A4C_AGIT_ADT008</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00009</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>A4C_AGIT_ADT008</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Invalid credentials were used to access the repository.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Unable to authenticate user.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Check your credentials and try again.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If 2-Factor authentication is enabled for your Git account or if</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>password authentication is not supported by your Git hosting service,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>use a personal access token with appropriate scopes instead of password.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For more information about creating a personal access token and</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>configuring scope for it, check help documentation of your Git hosting</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>service.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>A4C_AGIT_ADT009</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <TXTLINES>00012</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>A4C_AGIT_ADT009</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Sie haben entweder keine Berechtigung, auf dieses Repository</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zuzugreifen, oder die angegebenen Anmeldeinformationen sind ungültig.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Zugriff verweigert.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Sie haben entweder keine Berechtigung, auf dieses Repository</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>zuzugreifen, oder Sie müssen ggf. ein persönliches Zugriffstoken verwen</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>den, wenn Ihr Git-Hosting-Service keine Kennwortauthentifizierung</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>unterstützt.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn Sie bereits ein persönliches Zugriffstoken verwenden, stellen Sie</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>sicher, dass Sie ausreichend Scopes dafür angegeben haben.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Weitere Informationen über das Anlegen eines persönlichen Zugriffstokens</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>und die Konfiguration des Scopes dafür finden Sie in der Hi</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>=</TDFORMAT>
+       <TDLINE>lfedokumentation Ihres Git-Hosting-Service.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>A4C_AGIT_ADT009</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00011</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>A4C_AGIT_ADT009</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Either you don&apos;t have permission to access this repository or the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>credentials you have provided are invalid.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Access Denied.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Either you don&apos;t have permission to access this repository or you may</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>have to use a personal access token if password authentication is not</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>supported by your Git hosting service.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If you are already using a personal access token, make sure that you</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>have specified sufficient scopes for it.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For more information about creating a personal access token and</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>configuring scope for it, check help documentation of your Git hosting</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>service.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>A4C_AGIT_ADT010</OBJECT>
+      <LANGU>D</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <TXTLINES>00010</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>A4C_AGIT_ADT010</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>D</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Das Repository, auf das Sie versuchen zuzugreifen, konnte nicht mit den</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>angegebenen Anmeldeinformationen gefunden werden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Ressource nicht gefunden.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Prüfen Sie, ob das Repository vorhanden ist.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Wenn es vorhanden ist und Sie zur Anmeldung ein persönliches</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Zugriffstoken verwenden, prüfen Sie, ob Sie die notwendigen Scopes für</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Ihr persönliches Zugriffstoken angegeben haben.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Weitere Informationen über die Konfiguration des Scopes für das</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>persönliche Zugriffstoken finden Sie in der Hilfedokumentation Ihres</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>Git-Hosting-Service.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+    <item>
+     <DOKIL>
+      <ID>NA</ID>
+      <OBJECT>A4C_AGIT_ADT010</OBJECT>
+      <LANGU>E</LANGU>
+      <TYP>E</TYP>
+      <VERSION>0002</VERSION>
+      <MASTERLANG>X</MASTERLANG>
+      <TXTLINES>00009</TXTLINES>
+     </DOKIL>
+     <HEAD>
+      <TDOBJECT>DOKU</TDOBJECT>
+      <TDNAME>A4C_AGIT_ADT010</TDNAME>
+      <TDID>NA</TDID>
+      <TDSPRAS>E</TDSPRAS>
+      <TDFORM>S_DOCU_SHOW</TDFORM>
+      <TDSTYLE>S_DOCUS1</TDSTYLE>
+      <TDVERSION>00002</TDVERSION>
+      <TDLINESIZE>072</TDLINESIZE>
+     </HEAD>
+     <LINES>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;CAUSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Could not find the repository you are trying to access with the</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>credentials provided.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;SYSTEM_RESPONSE&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Resource not found.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>U1</TDFORMAT>
+       <TDLINE>&amp;WHAT_TO_DO&amp;</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>Check if the repository exists.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>If it exists and if you are using a personal access token to login,</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>check if you have specified the necessary scopes for your personal</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>access token.</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDFORMAT>AS</TDFORMAT>
+       <TDLINE>For more information about configuring scope for the personal access</TDLINE>
+      </TLINE>
+      <TLINE>
+       <TDLINE>token, check help documentation of your Git hosting service.</TDLINE>
+      </TLINE>
+     </LINES>
+    </item>
+   </LONGTEXTS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
