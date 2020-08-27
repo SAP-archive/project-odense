@@ -1,4 +1,7 @@
 # project-odense
+
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/project-odense)](https://api.reuse.software/info/github.com/SAP/project-odense)
+
 RESTful endpoints to enable the usage of abapGit for ABAP Development Tools
 
 > These endpoints are used in the SAP Cloud Platform ABAP Environment for the communication between abapGit and the ABAP Development Tools. Hence, these endpoints requiring the use of abapGit in SAP Namespace.
