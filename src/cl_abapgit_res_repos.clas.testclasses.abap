@@ -26,7 +26,6 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repos=>ty_request_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
@@ -48,13 +47,20 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-package          exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-url              exp = 'd' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'e' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'f' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-package
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-url
+                                        exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'e' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'f' ).
 
   ENDMETHOD.
 
@@ -66,7 +72,6 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repos=>ty_request_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
@@ -88,13 +93,20 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-package          exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-url              exp = 'd' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'e' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'f' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-package
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-url
+                                        exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'e' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'f' ).
 
   ENDMETHOD.
 
@@ -106,7 +118,6 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repos=>ty_request_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
@@ -129,13 +140,20 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-package          exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-url              exp = 'd' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'e' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'f' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-package
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-url
+                                        exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'e' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'f' ).
 
   ENDMETHOD.
 
@@ -147,7 +165,6 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repos=>ty_request_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
@@ -169,39 +186,50 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-package          exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'c' ).
-    cl_abap_unit_assert=>assert_initial( act = ls_data-url ). "initial value expected
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'e' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'f' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-package
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'c' ).
+    " initial value expected
+    cl_abap_unit_assert=>assert_initial( act = ls_data-url ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'e' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'f' ).
 
   ENDMETHOD.
 
   METHOD repo_v2_deserialize_ok.
     DATA: lv_xml_data        TYPE string,
-          repository_data TYPE cl_abapgit_res_repos=>tt_request_data.
+          lo_repository_data TYPE cl_abapgit_res_repos=>tt_request_data.
 
-    lv_xml_data = lv_xml_data && |<?xml version="1.0" encoding="UTF-8"?><repositories>| && cl_abap_char_utilities=>newline.
+    lv_xml_data = lv_xml_data && |<?xml version="1.0" encoding="UTF-8"?><repositories>|
+                              && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |  <repository>| && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |    <branch>refs/heads/master</branch>| && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |    <package>TEST_YY</package>| && cl_abap_char_utilities=>newline.
-    lv_xml_data = lv_xml_data && |    <url>https://github.com/Wunderfitz/yy.git</url>| && cl_abap_char_utilities=>newline.
+    lv_xml_data = lv_xml_data && |    <url>https://github.com/Wunderfitz/yy.git</url>|
+                              && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |  </repository>| && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |  <repository>| && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |    <branch>refs/heads/master</branch>| && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |    <package>TEST_LOGGER</package>| && cl_abap_char_utilities=>newline.
-    lv_xml_data = lv_xml_data && |    <url>https://github.com/epeterson320/ABAP-Logger.git</url>| && cl_abap_char_utilities=>newline.
+    lv_xml_data = lv_xml_data && |    <url>https://github.com/epeterson320/ABAP-Logger.git</url>|
+                              && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |  </repository>| && cl_abap_char_utilities=>newline.
     lv_xml_data = lv_xml_data && |</repositories>|.
 
     CALL TRANSFORMATION abapgit_st_repo_post_v2
       SOURCE XML lv_xml_data
-      RESULT repositories = repository_data.
+      RESULT repositories = lo_repository_data.
 
-    cl_abap_unit_assert=>assert_not_initial( repository_data ).
-    cl_abap_unit_assert=>assert_equals( exp = 2 act = lines( repository_data ) ).
+    cl_abap_unit_assert=>assert_not_initial( lo_repository_data ).
+    cl_abap_unit_assert=>assert_equals( exp = 2
+                                        act = lines( lo_repository_data ) ).
   ENDMETHOD.
 
   METHOD repo_v2_serialize_ok.
@@ -220,7 +248,7 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       RESULT XML lv_xml_data.
 
     cl_abap_unit_assert=>assert_not_initial( lv_xml_data ).
-    cl_abap_unit_assert=>assert_true( boolc( lv_xml_data CS '<package>TEST_YY</package>' ) ).
+    cl_abap_unit_assert=>assert_true( xsdbool( lv_xml_data CS '<package>TEST_YY</package>' ) ).
 
   ENDMETHOD.
 
@@ -240,11 +268,15 @@ CLASS ltd_abapgit_provider_default IMPLEMENTATION.
   METHOD lif_abapgit_provider~perform_import.
     CASE is_request_data-url.
       WHEN 'https://github.com/Wunderfitz/jak.git'.
-        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master' act = is_request_data-branch ).
-        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_JAK' act = is_request_data-package ).
+        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master'
+                                            act = is_request_data-branch ).
+        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_JAK'
+                                            act = is_request_data-package ).
       WHEN 'https://github.com/Wunderfitz/yy.git'.
-        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master' act = is_request_data-branch ).
-        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_YY' act = is_request_data-package ).
+        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master'
+                                            act = is_request_data-branch ).
+        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_YY'
+                                            act = is_request_data-package ).
       WHEN OTHERS.
         cl_abap_unit_assert=>fail( msg = |Unexpected Git repository { is_request_data-url } | ).
     ENDCASE.
@@ -253,11 +285,15 @@ CLASS ltd_abapgit_provider_default IMPLEMENTATION.
   METHOD lif_abapgit_provider~link_repo.
     CASE is_request_data-url.
       WHEN 'https://github.com/Wunderfitz/jak.git'.
-        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master' act = is_request_data-branch ).
-        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_JAK' act = is_request_data-package ).
+        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master'
+                                            act = is_request_data-branch ).
+        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_JAK'
+                                            act = is_request_data-package ).
       WHEN 'https://github.com/Wunderfitz/yy.git'.
-        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master' act = is_request_data-branch ).
-        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_YY' act = is_request_data-package ).
+        cl_abap_unit_assert=>assert_equals( exp = 'refs/heads/master'
+                                            act = is_request_data-branch ).
+        cl_abap_unit_assert=>assert_equals( exp = 'TESCHD_YY'
+                                            act = is_request_data-package ).
       WHEN OTHERS.
         cl_abap_unit_assert=>fail( msg = |Unexpected Git repository { is_request_data-url } | ).
     ENDCASE.
@@ -292,10 +328,10 @@ ENDCLASS.
 
 CLASS ltcl_abapgit_repos_resource DEFINITION FOR TESTING RISK LEVEL HARMLESS DURATION SHORT.
   PRIVATE SECTION.
-    DATA: request_stub           TYPE REF TO cl_adt_rest_request_stub,
-          response_spy           TYPE REF TO cl_adt_rest_response_spy,
-          abapgit_repos_resource TYPE REF TO cl_abapgit_res_repos,
-          request_data_v2        TYPE cl_abapgit_res_repos=>tt_request_data.
+    DATA: mo_request_stub           TYPE REF TO cl_adt_rest_request_stub,
+          mo_response_spy           TYPE REF TO cl_adt_rest_response_spy,
+          mo_abapgit_repos_resource TYPE REF TO cl_abapgit_res_repos,
+          mo_request_data_v2        TYPE cl_abapgit_res_repos=>tt_request_data.
     METHODS:
       setup,
       no_content_type_header FOR TESTING RAISING cx_static_check,
@@ -305,39 +341,39 @@ ENDCLASS.
 CLASS ltcl_abapgit_repos_resource IMPLEMENTATION.
 
   METHOD setup.
-    CREATE OBJECT me->request_stub.
-    CREATE OBJECT me->response_spy.
-    CREATE OBJECT me->abapgit_repos_resource.
-    me->abapgit_repos_resource->set_abapgit_provider( io_abapgit_provider = NEW ltd_abapgit_provider_default( ) ).
+    mo_request_stub = NEW #( ).
+    mo_response_spy = NEW #( ).
+    mo_abapgit_repos_resource = NEW #( ).
+    mo_abapgit_repos_resource->set_abapgit_provider( NEW ltd_abapgit_provider_default( ) ).
   ENDMETHOD.
 
   METHOD no_content_type_header.
-    me->abapgit_repos_resource->post( request  = me->request_stub
-                                      response = me->response_spy ).
+    mo_abapgit_repos_resource->post( request  = mo_request_stub
+                                     response = mo_response_spy ).
 
     cl_abap_unit_assert=>assert_equals( exp = cl_rest_status_code=>gc_client_error_bad_request
-                                        act = me->response_spy->get_status( ) ).
+                                        act = mo_response_spy->get_status( ) ).
   ENDMETHOD.
 
   METHOD standard_v2.
 
-    me->request_stub->add_header_field( key   = if_http_header_fields=>content_type
-                                        value = cl_abapgit_res_repos=>co_content_type_repo_v2 ).
+    mo_request_stub->add_header_field( key   = if_http_header_fields=>content_type
+                                       value = cl_abapgit_res_repos=>co_content_type_repo_v2 ).
 
-    me->request_data_v2 = VALUE #( ( url = 'https://github.com/Wunderfitz/jak.git'
-                                     branch = 'refs/heads/master'
-                                     package = 'TESCHD_JAK' )
-                                   ( url = 'https://github.com/Wunderfitz/yy.git'
-                                     branch = 'refs/heads/master'
-                                     package = 'TESCHD_YY' ) ).
+    mo_request_data_v2 = VALUE #( ( url = 'https://github.com/Wunderfitz/jak.git'
+                                    branch = 'refs/heads/master'
+                                    package = 'TESCHD_JAK' )
+                                  ( url = 'https://github.com/Wunderfitz/yy.git'
+                                    branch = 'refs/heads/master'
+                                    package = 'TESCHD_YY' ) ).
 
-    me->request_stub->set_body_data( data = me->request_data_v2 ).
+    mo_request_stub->set_body_data( data = mo_request_data_v2 ).
 
-    me->abapgit_repos_resource->post( request  = me->request_stub
-                                      response = me->response_spy ).
+    mo_abapgit_repos_resource->post( request  = mo_request_stub
+                                     response = mo_response_spy ).
 
     cl_abap_unit_assert=>assert_equals( exp = cl_rest_status_code=>gc_success_created
-                                        act = me->response_spy->get_status( ) ).
+                                        act = mo_response_spy->get_status( ) ).
 
   ENDMETHOD.
 

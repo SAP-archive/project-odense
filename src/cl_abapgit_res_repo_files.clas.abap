@@ -14,7 +14,6 @@ CLASS cl_abapgit_res_repo_files DEFINITION
       co_query_parm_filename TYPE string VALUE 'filename',
       co_query_parm_version  TYPE string VALUE 'version',
       co_file_remote         TYPE string VALUE 'remote',
-      co_file_local          TYPE string VALUE 'local',
       co_utf_8               TYPE string VALUE 'UTF-8'.
 ENDCLASS.
 
@@ -29,26 +28,34 @@ CLASS cl_abapgit_res_repo_files IMPLEMENTATION.
           lv_version         TYPE string,
           lv_filename        TYPE string,
           lv_source          TYPE string,
-          lv_username        TYPE string,
           lo_content_handler TYPE REF TO if_adt_rest_content_handler.
 
     " Get repository key
-    request->get_uri_attribute( EXPORTING name  = co_uri_attribute_key mandatory = abap_true
-                                IMPORTING value = lv_repo_key ).
+    request->get_uri_attribute( EXPORTING
+                                  name  = co_uri_attribute_key
+                                  mandatory = abap_true
+                                IMPORTING
+                                  value = lv_repo_key ).
 
     " Get credentials from request header
-    lv_username = request->get_inner_rest_request( )->get_header_field( iv_name = 'Username' ).
+    DATA(lv_username) = request->get_inner_rest_request( )->get_header_field( 'Username' ).
     " Client encodes password with base64 algorithm
     DATA(lv_password) = cl_abapgit_res_util=>encode_password(
-              request->get_inner_rest_request( )->get_header_field( iv_name = 'Password' ) ).
+              request->get_inner_rest_request( )->get_header_field( 'Password' ) ).
 
     " Get filename
-    request->get_uri_query_parameter( EXPORTING name  = co_query_parm_filename mandatory = abap_true
-                                      IMPORTING value = lv_filename ).
+    request->get_uri_query_parameter( EXPORTING
+                                        name  = co_query_parm_filename
+                                        mandatory = abap_true
+                                      IMPORTING
+                                        value = lv_filename ).
 
     " Get requested file version
-    request->get_uri_query_parameter( EXPORTING name  = co_query_parm_version mandatory = abap_false
-                                      IMPORTING value = lv_version ).
+    request->get_uri_query_parameter( EXPORTING
+                                        name  = co_query_parm_version
+                                        mandatory = abap_false
+                                      IMPORTING
+                                        value = lv_version ).
 
     " Content handler for plain text
     lo_content_handler = cl_adt_rest_comp_cnt_handler=>create(
@@ -65,26 +72,28 @@ CLASS cl_abapgit_res_repo_files IMPLEMENTATION.
                                                        iv_password = lv_password ).
         ENDIF.
 
-        IF lv_version = co_file_remote. "if requested is remote version
+        " if requested is remote version
+        IF lv_version = co_file_remote.
 
           " read the contents of the requested remote file
           DATA(lt_rfiles) = lo_repo->get_files_remote( ).
-          READ TABLE lt_rfiles WITH KEY filename = lv_filename TRANSPORTING all fields INTO DATA(ls_rfile).
+          READ TABLE lt_rfiles WITH KEY filename = lv_filename TRANSPORTING ALL FIELDS INTO DATA(ls_rfile).
           lv_source = cl_abap_codepage=>convert_from( source = ls_rfile-data
                                                       ignore_cerr = abap_true
                                                       codepage = co_utf_8 ).
-
-        ELSE. " if requested is local version
+        " if requested is local version
+        ELSE.
 
           " read the contents of the requested remote file
           DATA(lt_lfiles) = lo_repo->get_files_local( ).
-          READ TABLE lt_lfiles WITH KEY file-filename = lv_filename TRANSPORTING all fields INTO DATA(ls_lfile).
+          READ TABLE lt_lfiles WITH KEY file-filename = lv_filename TRANSPORTING ALL FIELDS INTO DATA(ls_lfile).
           lv_source = cl_abap_codepage=>convert_from( source = ls_lfile-file-data
                                                       ignore_cerr = abap_true
                                                       codepage = co_utf_8 ).
 
         ENDIF.
-        response->set_body_data( content_handler = lo_content_handler data = lv_source ).
+        response->set_body_data( content_handler = lo_content_handler
+                                 data = lv_source ).
       CATCH cx_abapgit_exception INTO DATA(lx_exception).
         cx_adt_rest_abapgit=>raise_with_error(
             ix_error       = lx_exception

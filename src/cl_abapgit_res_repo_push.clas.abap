@@ -30,15 +30,17 @@ CLASS cl_abapgit_res_repo_push IMPLEMENTATION.
 
     DATA:
       lv_repo_key     TYPE if_abapgit_persistence=>ty_value,
-      lv_username     TYPE string,
       ls_request_data TYPE cl_abapgit_res_repo_stage=>ty_abapgit_staging,
       lo_repo_online  TYPE REF TO cl_abapgit_repo_online.
 
     TRY.
         " Handle request data
         " Get repository key
-        request->get_uri_attribute( EXPORTING name = 'key' mandatory = abap_true
-                                    IMPORTING value = lv_repo_key ).
+        request->get_uri_attribute( EXPORTING
+                                      name = 'key'
+                                      mandatory = abap_true
+                                    IMPORTING
+                                      value = lv_repo_key ).
 
         " Content Handler
         DATA(lo_request_content_handler) = cl_adt_rest_comp_cnt_handler=>create(
@@ -56,17 +58,16 @@ CLASS cl_abapgit_res_repo_push IMPLEMENTATION.
             data            = ls_request_data ).
 
         " Get credentials from request header
-        lv_username = request->get_inner_rest_request( )->get_header_field( iv_name = 'Username' ).
+        DATA(lv_username) = request->get_inner_rest_request( )->get_header_field( 'Username' ).
 
         " Client encodes password with base64 algorithm
         DATA(lv_password) = cl_abapgit_res_util=>encode_password(
-          request->get_inner_rest_request( )->get_header_field( iv_name = 'Password' ) ).
+          request->get_inner_rest_request( )->get_header_field( 'Password' ) ).
 
         " Determine repo specific data
         cl_abapgit_factory=>get_environment( )->set_repo_action( if_abapgit_app_log=>c_action_push ).
         DATA(lo_repo) = cl_abapgit_repo_srv=>get_instance( )->get( lv_repo_key ).
         lo_repo_online ?= lo_repo.
-        DATA(lv_repo_branch) = lo_repo_online->get_branch_name( ).
 
         " Trigger push as background job
         DATA(lo_bg_action) =
@@ -76,7 +77,7 @@ CLASS cl_abapgit_res_repo_push IMPLEMENTATION.
         " define parameter for background job
         DATA(lv_type) = lo_bg_action->get_param_type( ).
         DATA ls_param TYPE REF TO data.
-        FIELD-SYMBOLS <ls_commit> TYPE any.
+
         CREATE DATA ls_param TYPE (lv_type).
         ASSIGN ls_param->* TO FIELD-SYMBOL(<ls_param>).
 
@@ -102,9 +103,10 @@ CLASS cl_abapgit_res_repo_push IMPLEMENTATION.
 
       " Handle issues
       CATCH cx_abapgit_bg_action_running INTO DATA(lx_bg_action_running).
+        " 409
         cx_adt_rest_abapgit=>raise_with_error(
             ix_error       = lx_bg_action_running
-            iv_http_status = cl_rest_status_code=>gc_client_error_conflict ). "409
+            iv_http_status = cl_rest_status_code=>gc_client_error_conflict ).
       CATCH cx_abapgit_exception INTO DATA(lx_exception).
         ROLLBACK WORK.
         cx_adt_rest_abapgit=>raise_with_error(
@@ -117,12 +119,12 @@ CLASS cl_abapgit_res_repo_push IMPLEMENTATION.
 
   METHOD prepare_action_param.
 
-    CLEAR et_staged_objects.
-    CLEAR es_abapgit_comment.
-
     DATA:
       ls_staged_objects_transformed LIKE LINE OF et_staged_objects,
       ls_staged_objects_files       LIKE LINE OF ls_staged_objects_transformed-files.
+
+    CLEAR et_staged_objects.
+    CLEAR es_abapgit_comment.
 
     " Node: STAGED_OBJECTS
     LOOP AT is_request_data-staged_objects ASSIGNING FIELD-SYMBOL(<ls_staged_objects>).

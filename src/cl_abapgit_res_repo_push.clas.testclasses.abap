@@ -24,7 +24,6 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repo_pull=>ty_request_pull_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
@@ -44,11 +43,16 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'd' ).
 
   ENDMETHOD.
 
@@ -60,14 +64,13 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repo_pull=>ty_request_pull_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
     lv_xml = lv_xml && |<repository>|.
     lv_xml = lv_xml && |  <branch>a</branch>|.
-    lv_xml = lv_xml && |  <user>c</user>|. "exchanged by TRANSPORTREQUEST
-    lv_xml = lv_xml && |  <transportRequest>b</transportRequest>|. "exchanged by USER
+    lv_xml = lv_xml && |  <user>c</user>|. " exchanged by TRANSPORTREQUEST
+    lv_xml = lv_xml && |  <transportRequest>b</transportRequest>|. " exchanged by USER
     lv_xml = lv_xml && |  <password>d</password>|.
     lv_xml = lv_xml && |</repository>|.
     CALL TRANSFORMATION id SOURCE XML lv_xml RESULT XML lv_input_xml.
@@ -80,11 +83,16 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'd' ).
 
   ENDMETHOD.
 
@@ -96,7 +104,6 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repo_pull=>ty_request_pull_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
@@ -117,11 +124,16 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest exp = 'b' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-transportrequest
+                                        exp = 'b' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'd' ).
 
   ENDMETHOD.
 
@@ -133,13 +145,12 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
     DATA lt_result    TYPE abap_trans_resbind_tab.
     DATA ls_data      TYPE cl_abapgit_res_repo_pull=>ty_request_pull_data.
     FIELD-SYMBOLS <lt_result> LIKE LINE OF lt_result.
-    FIELD-SYMBOLS <lv_value> TYPE any.
 
     DATA lv_xml TYPE string.
     lv_xml = lv_xml && |<?xml version="1.0" encoding="utf-8"?>|.
     lv_xml = lv_xml && |<repository>|.
     lv_xml = lv_xml && |  <branch>a</branch>|.
-    " lv_xml = lv_xml && |  <transportRequest>b</transportRequest>|. " field missing(!)
+    "lv_xml = lv_xml && |  <transportRequest>b</transportRequest>|. " field missing(!)
     lv_xml = lv_xml && |  <user>c</user>|.
     lv_xml = lv_xml && |  <password>d</password>|.
     lv_xml = lv_xml && |</repository>|.
@@ -153,11 +164,39 @@ CLASS ltcl_simple_transformation IMPLEMENTATION.
       SOURCE XML lv_input_xml
       RESULT (lt_result).
 
-    cl_abap_unit_assert=>assert_equals( exp = 1 act = lines( lt_result ) ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-branch           exp = 'a' ).
+    cl_abap_unit_assert=>assert_equals( exp = 1
+                                        act = lines( lt_result ) ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-branch
+                                        exp = 'a' ).
     cl_abap_unit_assert=>assert_initial( act = ls_data-transportrequest ). " initial value expected
-    cl_abap_unit_assert=>assert_equals( act = ls_data-user             exp = 'c' ).
-    cl_abap_unit_assert=>assert_equals( act = ls_data-password         exp = 'd' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-user
+                                        exp = 'c' ).
+    cl_abap_unit_assert=>assert_equals( act = ls_data-password
+                                        exp = 'd' ).
+
+  ENDMETHOD.
+
+ENDCLASS.
+
+CLASS ltcl_test_abapgit_push DEFINITION FOR TESTING
+  DURATION SHORT
+  RISK LEVEL HARMLESS FINAL.
+
+  PRIVATE SECTION.
+
+    METHODS:
+      setup,
+      teardown.
+
+ENDCLASS.
+
+CLASS ltcl_test_abapgit_push IMPLEMENTATION.
+
+  METHOD setup.
+
+  ENDMETHOD.
+
+  METHOD teardown.
 
   ENDMETHOD.
 

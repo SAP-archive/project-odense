@@ -27,7 +27,7 @@
     },
     "abapdoc": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Warning",
       "checkLocal": false
     },
     "allowed_object_naming": {
@@ -168,10 +168,6 @@
       "exclude": [],
       "severity": "Error",
       "max": 20
-    },
-    "definitions_top": {
-      "exclude": [],
-      "severity": "Error"
     },
     "description_empty": {
       "exclude": [],
@@ -405,7 +401,7 @@
     },
     "line_length": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Warning",
       "length": 120
     },
     "line_only_punc": {
@@ -514,17 +510,17 @@
       "intf": "^IF\\_",
       "prog": "^Z",
       "fugr": "^Z",
-      "tabl": "^Z",
-      "ttyp": "^Z",
+      "tabl": "^T",
+      "ttyp": "^T",
       "dtel": "^Z",
       "doma": "^Z",
-      "msag": "^Z",
+      "msag": "^",
       "tran": "^Z",
       "enqu": "^EZ",
       "auth": "^Z",
       "pinf": "^Z",
       "idoc": "^Z",
-      "xslt": "^Z",
+      "xslt": "^",
       "ssfo": "^Z",
       "ssst": "^Z",
       "shlp": "^Z"
@@ -581,7 +577,7 @@
     },
     "preferred_compare_operator": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Warning",
       "badOperators": [
         "EQ",
         "><",

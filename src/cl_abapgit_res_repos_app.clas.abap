@@ -19,7 +19,7 @@ ENDCLASS.
 
 
 
-CLASS CL_ABAPGIT_RES_REPOS_APP IMPLEMENTATION.
+CLASS cl_abapgit_res_repos_app IMPLEMENTATION.
 
 
   METHOD get_application_title.

@@ -7,15 +7,6 @@ INTERFACE if_abapgit_repository_auth
     RETURNING VALUE(rv_repo_access) TYPE string
     RAISING   cx_abapgit_exception .
 
-  "! Checks if 2fa is enabled for the Git account
-  METHODS is_2fa_required
-    IMPORTING !iv_url            TYPE string
-              !iv_username       TYPE string
-              !iv_password       TYPE string
-              !iv_trigger_sms    TYPE abap_bool DEFAULT abap_true
-    RETURNING VALUE(rv_required) TYPE abap_bool
-    RAISING   cx_abapgit_exception.
-
   "! Handle exception arising due to authentication issue
   METHODS handle_auth_exception
     IMPORTING ix_abapgit_exception TYPE REF TO cx_abapgit_exception

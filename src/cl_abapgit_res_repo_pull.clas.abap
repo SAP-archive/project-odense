@@ -7,11 +7,6 @@ CLASS cl_abapgit_res_repo_pull DEFINITION
   PUBLIC SECTION.
 
     TYPES:
-      BEGIN OF  ty_s_result,
-        reason  TYPE string,
-        message TYPE string,
-      END OF ty_s_result.
-    TYPES:
       BEGIN OF ty_request_pull_data,
         branch           TYPE string,
         transportrequest TYPE string,
@@ -19,25 +14,10 @@ CLASS cl_abapgit_res_repo_pull DEFINITION
         password         TYPE string,
       END OF ty_request_pull_data.
 
-    TYPES: BEGIN OF ty_repo_w_links.
-             INCLUDE TYPE if_abapgit_persistence=>ty_repo.
-    TYPES:   links TYPE if_atom_types=>link_t.
-    TYPES: END OF ty_repo_w_links.
-    TYPES:
-      tt_repo_w_links TYPE STANDARD TABLE OF ty_repo_w_links WITH DEFAULT KEY.
-
-    CONSTANTS co_class_name             TYPE seoclsname VALUE 'CL_ABAPGIT_RES_REPOS' ##NO_TEXT.
-    CONSTANTS co_resource_type          TYPE string     VALUE 'REPOS' ##NO_TEXT.             "EC NOTEXT
     CONSTANTS co_st_name_pull           TYPE string     VALUE 'ABAPGIT_ST_REPO_PULL' ##NO_TEXT.
-    CONSTANTS co_st_name_post_res       TYPE string     VALUE 'ABAPGIT_ST_REPO_POST_RES'.
     CONSTANTS co_root_name_pull         TYPE string     VALUE 'REPOSITORY' ##NO_TEXT.
-    CONSTANTS co_root_name_post_res     TYPE string     VALUE 'OBJECTS'.
     CONSTANTS co_content_type_repo_v1   TYPE string     VALUE 'application/abapgit.adt.repo.v1+xml' ##NO_TEXT.
     CONSTANTS co_content_type_repos_v1  TYPE string     VALUE 'application/abapgit.adt.repos.v1+xml' ##NO_TEXT.
-    CONSTANTS co_content_type_object_v1 TYPE string     VALUE 'application/abapgit.adt.repo.object.v1+xml' ##NO_TEXT.
-    CONSTANTS co_st_name_get            TYPE string     VALUE 'ABAPGIT_ST_REPOS' ##NO_TEXT.
-    CONSTANTS co_root_name_get          TYPE string     VALUE 'REPOSITORIES' ##NO_TEXT.
-    CONSTANTS co_content_type_repo_v2   TYPE string     VALUE 'application/abapgit.adt.repo.v2+xml' ##NO_TEXT.
     CONSTANTS co_st_name_pull_v2        TYPE string     VALUE 'ABAPGIT_ST_REPO_PULL_V2' ##NO_TEXT.
     CONSTANTS co_content_type_repo_v3   TYPE string     VALUE 'application/abapgit.adt.repo.v3+xml' ##NO_TEXT.
     CONSTANTS co_content_type_repos_v2  TYPE string     VALUE 'application/abapgit.adt.repos.v2+xml' ##NO_TEXT.
@@ -58,7 +38,9 @@ CLASS cl_abapgit_res_repo_pull IMPLEMENTATION.
   METHOD get.
 
     DATA(ls_requested_content_type) =
-      request->get_inner_rest_request( )->get_header_field( iv_name = if_http_header_fields=>content_type ).
+      request->get_inner_rest_request( )->get_header_field( if_http_header_fields=>content_type ).
+
+    " case co_content_type_repos_v2 to handle pull for emf model of abapGit Repositories view.
 
     CASE ls_requested_content_type.
       WHEN co_content_type_repos_v1.
@@ -94,6 +76,7 @@ CLASS cl_abapgit_res_repo_pull IMPLEMENTATION.
             iv_http_status = cl_rest_status_code=>gc_server_error_internal ).
     ENDTRY.
 
+
   ENDMETHOD.
 
 
@@ -105,11 +88,16 @@ CLASS cl_abapgit_res_repo_pull IMPLEMENTATION.
 
     TRY.
         " Get Repository Key
-        request->get_uri_attribute( EXPORTING name = 'key' mandatory = abap_true
-                                    IMPORTING value = lv_repo_key ).
+        request->get_uri_attribute( EXPORTING
+                                      name = 'key'
+                                      mandatory = abap_true
+                                    IMPORTING
+                                      value = lv_repo_key ).
+
+        " case co_content_type_repo_v3 to handle pull request for emf model of abapGit Repositories view.
 
         DATA(ls_requested_content_type) =
-          request->get_inner_rest_request( )->get_header_field( iv_name = if_http_header_fields=>content_type ).
+          request->get_inner_rest_request( )->get_header_field( if_http_header_fields=>content_type ).
 
         CASE ls_requested_content_type.
           WHEN co_content_type_repo_v1.
@@ -174,7 +162,7 @@ CLASS cl_abapgit_res_repo_pull IMPLEMENTATION.
             ix_error       = lx_bg_action_running
             iv_http_status = cl_rest_status_code=>gc_client_error_conflict ). "409
       CATCH cx_abapgit_exception cx_abapgit_app_log cx_a4c_logger cx_cbo_job_scheduler cx_uuid_error
-        cx_abapgit_not_found INTO DATA(lx_exception).
+          cx_abapgit_not_found INTO DATA(lx_exception).
         ROLLBACK WORK.
         cx_adt_rest_abapgit=>raise_with_error(
             ix_error       = lx_exception

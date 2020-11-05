@@ -19,8 +19,7 @@ CLASS cl_abapgit_res_util DEFINITION
       get_obj_result_from_log
         IMPORTING
           iv_log        TYPE REF TO if_abapgit_log
-        EXPORTING
-          et_obj_result TYPE tt_obj_result.
+        RETURNING VALUE(rt_obj_result) TYPE tt_obj_result.
 
     CLASS-METHODS:
       encode_password
@@ -37,7 +36,7 @@ CLASS cl_abapgit_res_util IMPLEMENTATION.
   METHOD get_obj_result_from_log.
 
     DATA ls_obj_result TYPE t_obj_result.
-    CLEAR et_obj_result.
+    CLEAR rt_obj_result.
     CHECK iv_log IS BOUND.
 
     iv_log->get_item_status( IMPORTING et_item_status = DATA(lt_item_status) ).
@@ -54,10 +53,10 @@ CLASS cl_abapgit_res_util IMPLEMENTATION.
       LOOP AT lt_msg ASSIGNING FIELD-SYMBOL(<ls_msg>).
         ls_obj_result-msg_type = <ls_msg>-type.
         ls_obj_result-msg_text = <ls_msg>-text.
-        APPEND ls_obj_result TO et_obj_result.
+        APPEND ls_obj_result TO rt_obj_result.
       ENDLOOP.
       IF sy-subrc <> 0.
-        APPEND ls_obj_result TO et_obj_result.
+        APPEND ls_obj_result TO rt_obj_result.
       ENDIF.
 
     ENDLOOP.

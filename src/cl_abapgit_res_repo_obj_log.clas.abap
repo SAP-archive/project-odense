@@ -5,18 +5,6 @@ CLASS cl_abapgit_res_repo_obj_log DEFINITION
   CREATE PUBLIC.
 
   PUBLIC SECTION.
-
-    TYPES:
-      BEGIN OF t_obj_result,
-        obj_type   TYPE trobjtype,
-        obj_name   TYPE sobj_name,
-        obj_status TYPE symsgty,
-        package    TYPE devclass,
-        msg_type   TYPE symsgty,
-        msg_text   TYPE string,
-      END OF t_obj_result,
-      tt_obj_result TYPE STANDARD TABLE OF t_obj_result WITH DEFAULT KEY.
-
     CONSTANTS co_st_name_post_res       TYPE string VALUE 'ABAPGIT_ST_REPO_POST_RES'.
     CONSTANTS co_root_name_post_res     TYPE string VALUE 'OBJECTS'.
     CONSTANTS co_content_type_object_v1 TYPE string VALUE 'application/abapgit.adt.repo.object.v1+xml' ##NO_TEXT.
@@ -37,11 +25,11 @@ CLASS cl_abapgit_res_repo_obj_log IMPLEMENTATION.
   METHOD get.
 
     DATA lv_app_log_key  TYPE tsa4c_agit_applog_key-app_log.
-    DATA lt_result_table TYPE tt_obj_result.
-    DATA ls_result_table TYPE t_obj_result.
 
     DATA(ls_requested_content_type) =
-      request->get_inner_rest_request( )->get_header_field( iv_name = if_http_header_fields=>accept ).
+      request->get_inner_rest_request( )->get_header_field( if_http_header_fields=>accept ).
+
+    " case co_content_type_object_v2 to handle abapObject log objects in emf model for abapGit Repositories view.
 
     CASE ls_requested_content_type.
 
@@ -69,18 +57,18 @@ CLASS cl_abapgit_res_repo_obj_log IMPLEMENTATION.
     TRY.
 
         " Get Application Log Key
-        request->get_uri_attribute( EXPORTING name = 'app_log_key' mandatory = abap_true
-                                    IMPORTING value = lv_app_log_key ).
+        request->get_uri_attribute( EXPORTING
+                                      name = 'app_log_key'
+                                      mandatory = abap_true
+                                    IMPORTING
+                                      value = lv_app_log_key ).
 
         " read application log
         DATA(lo_log_factory) = cl_abapgit_app_log_factory=>get_instance( ).
         DATA(lo_log) = lo_log_factory->load_single( iv_app_log = lv_app_log_key ).
 
         " transform application log to result (object based)
-        DATA lt_obj_result TYPE cl_abapgit_res_util=>tt_obj_result.
-        cl_abapgit_res_util=>get_obj_result_from_log(
-          EXPORTING iv_log        = lo_log
-          IMPORTING et_obj_result = lt_obj_result ).
+        DATA(lt_obj_result) = cl_abapgit_res_util=>get_obj_result_from_log( lo_log ).
 
         response->set_body_data(
           content_handler = lo_resp_content_handler
@@ -88,7 +76,7 @@ CLASS cl_abapgit_res_repo_obj_log IMPLEMENTATION.
 
         response->set_status( cl_rest_status_code=>gc_success_ok ).
 
-      " Handle issues
+        " Handle issues
       CATCH cx_abapgit_exception cx_abapgit_app_log INTO DATA(lx_exception).
         ROLLBACK WORK.
         cx_adt_rest_abapgit=>raise_with_error(

@@ -38,15 +38,9 @@ CLASS cl_abapgit_repository_auth IMPLEMENTATION.
       ev_http_status = cl_rest_status_code=>gc_client_error_forbidden.
     ELSEIF lv_exc_text = 'HTTP 404, not found'.
       ev_http_status = cl_rest_status_code=>gc_client_error_not_found.
-    ELSEIF lv_exc_text = '2FA required'.
-      ev_http_status = cl_rest_status_code=>gc_client_error_unauthorized.
     ENDIF.
 
-    IF ev_http_status IS NOT INITIAL.
-      rv_is_auth_issue = abap_true.
-    ELSE.
-      rv_is_auth_issue = abap_false.
-    ENDIF.
+    rv_is_auth_issue = xsdbool( ev_http_status IS NOT INITIAL ).
   ENDMETHOD.
 
   METHOD if_abapgit_repository_auth~handle_auth_exception.
@@ -61,15 +55,13 @@ CLASS cl_abapgit_repository_auth IMPLEMENTATION.
     " Return the error code from the abapgit exception as part of additional adt exception properties.
     DATA(lv_properties) = cx_adt_rest_abapgit=>create_properties( )->add_property( key = 'http_status'
                                                                                    value = lv_http_status_string ).
-    DATA lv_auth_exception TYPE REF TO cx_adt_abapgit_auth.
-
     TRY.
-        "cl_abapgit_repository_auth=>get_exception_from_http_status( ev_http_status = lv_http_status_string ).
-        get_exception_from_http_status( iv_http_status = lv_http_status_string ).
-      CATCH cx_adt_abapgit_auth INTO lv_auth_exception.
-        DATA(lv_long_text) = cx_adt_rest=>get_longtext_from_exception( lv_auth_exception ).
-        lv_properties->add_property( key = 'LONGTEXT' value = lv_long_text ).
-        cx_adt_rest_abapgit=>raise_with_error( ix_error       = lv_auth_exception
+        get_exception_from_http_status( lv_http_status_string ).
+      CATCH cx_adt_abapgit_auth INTO DATA(lx_auth_exception).
+        DATA(lv_long_text) = cx_adt_rest=>get_longtext_from_exception( lx_auth_exception ).
+        lv_properties->add_property( key = 'LONGTEXT'
+                                     value = lv_long_text ).
+        cx_adt_rest_abapgit=>raise_with_error( ix_error       = lx_auth_exception
                                                iv_http_status = cl_rest_status_code=>gc_server_error_internal
                                                iv_properties  = lv_properties ).
     ENDTRY.
@@ -93,23 +85,6 @@ CLASS cl_abapgit_repository_auth IMPLEMENTATION.
             textid = cx_adt_abapgit_auth=>http_404.
 
     ENDCASE.
-  ENDMETHOD.
-
-  METHOD if_abapgit_repository_auth~is_2fa_required.
-    DATA: lo_authenticator TYPE REF TO if_abapgit_2fa_authenticator,
-          lx_ex            TYPE REF TO cx_root.
-
-    lo_authenticator = NEW cl_abapgit_2fa_github_auth( ).
-
-    " Check if 2fa enabled for this account without sending otp via sms
-    TRY.
-        rv_required = lo_authenticator->is_2fa_required( iv_url         = iv_url
-                                                         iv_username    = iv_username
-                                                         iv_password    = iv_password
-                                                         iv_trigger_sms = iv_trigger_sms ).
-      CATCH cx_abapgit_2fa_comm_error INTO lx_ex.
-        cx_abapgit_exception=>raise( |2FA error: { lx_ex->get_text( ) }| ).
-    ENDTRY.
   ENDMETHOD.
 
 ENDCLASS.

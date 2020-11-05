@@ -7,22 +7,6 @@ CLASS cl_abapgit_res_repo_stage DEFINITION
   PUBLIC SECTION.
 
     TYPES:
-      BEGIN OF ty_request_data,
-        user     TYPE string,
-        password TYPE string,
-      END OF ty_request_data .
-    TYPES:
-      BEGIN OF ty_response_data,
-        type     TYPE string,
-        name     TYPE string,
-        filename TYPE string,
-        package  TYPE string,
-        status   TYPE string,
-        message  TYPE string,
-      END OF ty_response_data .
-    TYPES:
-      tt_response_data TYPE TABLE OF ty_response_data .
-    TYPES:
       BEGIN OF ty_abapgit_file,
         filename    TYPE string,
         path        TYPE string,
@@ -72,6 +56,7 @@ CLASS cl_abapgit_res_repo_stage DEFINITION
                 is_wbtype         TYPE wbobjtype
       RETURNING VALUE(rv_adt_uri) TYPE string.
 
+    "! <p class="shorttext synchronized" lang="en">Returns the File links</p>
     METHODS get_file_links
       IMPORTING
         !iv_repo_key    TYPE if_abapgit_persistence=>ty_value
@@ -92,7 +77,6 @@ CLASS cl_abapgit_res_repo_stage IMPLEMENTATION.
   METHOD get.
     DATA:
       lv_repo_key      TYPE if_abapgit_persistence=>ty_value,
-      lv_username      TYPE string,
       ls_obj_wbtype    TYPE wbobjtype,
       lo_repo_online   TYPE REF TO cl_abapgit_repo_online,
       ls_response_data TYPE ty_abapgit_staging,
@@ -111,14 +95,17 @@ CLASS cl_abapgit_res_repo_stage IMPLEMENTATION.
         " Handle request data
 
         " Get repository key
-        request->get_uri_attribute( EXPORTING name = 'key' mandatory = abap_true
-                                    IMPORTING value = lv_repo_key ).
+        request->get_uri_attribute( EXPORTING
+                                      name = 'key'
+                                      mandatory = abap_true
+                                    IMPORTING
+                                      value = lv_repo_key ).
 
         " Get credentials from request header
-        lv_username = request->get_inner_rest_request( )->get_header_field( iv_name = 'Username' ).
+        DATA(lv_username) = request->get_inner_rest_request( )->get_header_field( 'Username' ).
         " Client encodes password with base64 algorithm
         DATA(lv_password) = cl_abapgit_res_util=>encode_password(
-          request->get_inner_rest_request( )->get_header_field( iv_name = 'Password' ) ).
+          request->get_inner_rest_request( )->get_header_field( 'Password' ) ).
 
         " Set credentials in case there are supplied
         IF lv_username IS NOT INITIAL AND lv_password IS NOT INITIAL.
@@ -147,7 +134,8 @@ CLASS cl_abapgit_res_repo_stage IMPLEMENTATION.
             WHEN OTHERS.
               cx_abapgit_exception=>raise( 'Unknown Action Type' ).
           ENDCASE.
-          response->set_status( cl_rest_status_code=>gc_client_error_conflict ). "409
+          " 409
+          response->set_status( cl_rest_status_code=>gc_client_error_conflict ).
           EXIT.
         ELSEIF ls_repo-status = if_abapgit_app_log=>c_run_status-initial.
           CASE ls_repo-action.
@@ -160,19 +148,16 @@ CLASS cl_abapgit_res_repo_stage IMPLEMENTATION.
             WHEN OTHERS.
               cx_abapgit_exception=>raise( 'Unknown Action Type' ).
           ENDCASE.
-          response->set_status( cl_rest_status_code=>gc_client_error_conflict ). "409
+          " 409
+          response->set_status( cl_rest_status_code=>gc_client_error_conflict ).
           EXIT.
         ENDIF.
 
         " Force refresh on stage, to make sure the latest local and remote files are used
         lo_repo_online->refresh( ).
 
-        DATA(lv_repo_branch) = lo_repo_online->get_branch_name( ).
-
         " Retrieve repository content
-        CREATE OBJECT lo_repo_content
-          EXPORTING
-            io_repo = lo_repo.
+        lo_repo_content = NEW #( lo_repo ).
 
         DATA(lt_repo_items) = lo_repo_content->list( iv_path         = '/'
                                                      iv_by_folders   = abap_false
@@ -184,11 +169,13 @@ CLASS cl_abapgit_res_repo_stage IMPLEMENTATION.
             CLEAR: ls_object, ls_object_ref.
 
             " Header data
-            IF <ls_repo_items>-obj_name IS INITIAL. "non-code and meta files
+            " non-code and meta files
+            IF <ls_repo_items>-obj_name IS INITIAL.
 
               " handle non-code and meta files
               IF <ls_repo_items>-files IS NOT INITIAL.
-                ls_object_ref-name = 'non-code and meta files'. "if the logic is proper move the text to a message class
+                " if the logic is proper move the text to a message class
+                ls_object_ref-name = 'non-code and meta files'.
               ENDIF.
             ELSE.
               ls_object_ref-name = <ls_repo_items>-obj_name.
@@ -257,41 +244,42 @@ CLASS cl_abapgit_res_repo_stage IMPLEMENTATION.
           content_type = co_content_type_v1 ).
 
         " Prepare Response
-        response->set_body_data( content_handler = lo_response_content_handler data = ls_response_data ).
+        response->set_body_data( content_handler = lo_response_content_handler
+                                 data = ls_response_data ).
         response->set_status( cl_rest_status_code=>gc_success_ok ).
 
         " Handle issues
       CATCH cx_abapgit_exception cx_abapgit_app_log cx_a4c_logger cx_cbo_job_scheduler cx_uuid_error
-        cx_abapgit_not_found INTO DATA(lx_exception).
+          cx_abapgit_not_found INTO DATA(lx_exception).
         ROLLBACK WORK.
         cx_adt_rest_abapgit=>raise_with_error(
-            ix_error       = lx_exception
-            iv_http_status = cl_rest_status_code=>gc_server_error_internal ).
+          ix_error       = lx_exception
+          iv_http_status = cl_rest_status_code=>gc_server_error_internal ).
     ENDTRY.
   ENDMETHOD.
 
 
   METHOD get_file_links.
 
-    CONSTANTS:
-      lco_file_rel_fetch_local  TYPE string VALUE 'http://www.sap.com/adt/abapgit/file/relations/fetch/localversion',
-      lco_file_rel_fetch_remote TYPE string VALUE 'http://www.sap.com/adt/abapgit/file/relations/fetch/remoteversion',
-      lco_root_path             TYPE string VALUE '/sap/bc/adt/abapgit'.
+   DATA:
+      lv_file_rel_fetch_local  TYPE string VALUE 'http://www.sap.com/adt/abapgit/file/relations/fetch/localversion',
+      lv_file_rel_fetch_remote TYPE string VALUE 'http://www.sap.com/adt/abapgit/file/relations/fetch/remoteversion',
+      lv_root_path             TYPE string VALUE '/sap/bc/adt/abapgit'.
 
     DATA(lo_atom_util) = cl_adt_atom_utility=>create_instance( ).
 
     lo_atom_util->append_link(
       EXPORTING
-        rel  = lco_file_rel_fetch_local
-        href = |{ lco_root_path }/repos/{ escape( val = iv_repo_key format = cl_abap_format=>e_xss_url ) }/files?filename={ escape( val = iv_filename format = cl_abap_format=>e_xss_url ) }&version=local|
+        rel  = lv_file_rel_fetch_local
+        href = |{ lv_root_path }/repos/{ escape( val = iv_repo_key format = cl_abap_format=>e_xss_url ) }/files?filename={ escape( val = iv_filename format = cl_abap_format=>e_xss_url ) }&version=local|
         type = |fetch_link|
       CHANGING
         links = rt_links ).
 
     lo_atom_util->append_link(
       EXPORTING
-        rel  = lco_file_rel_fetch_remote
-        href = |{ lco_root_path }/repos/{ escape( val = iv_repo_key format = cl_abap_format=>e_xss_url ) }/files?filename={ escape( val = iv_filename format = cl_abap_format=>e_xss_url ) }&version=remote|
+        rel  = lv_file_rel_fetch_remote
+        href = |{ lv_root_path }/repos/{ escape( val = iv_repo_key format = cl_abap_format=>e_xss_url ) }/files?filename={ escape( val = iv_filename format = cl_abap_format=>e_xss_url ) }&version=remote|
         type = |fetch_link|
       CHANGING
         links = rt_links ).

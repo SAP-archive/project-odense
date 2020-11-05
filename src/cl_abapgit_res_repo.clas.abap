@@ -5,18 +5,6 @@ CLASS cl_abapgit_res_repo DEFINITION
   CREATE PUBLIC.
 
   PUBLIC SECTION.
-
-    TYPES:
-      BEGIN OF ty_response_data,
-        type     TYPE string,
-        name     TYPE string,
-        filename TYPE string,
-        package  TYPE string,
-        status   TYPE string,
-        message  TYPE string,
-      END OF ty_response_data,
-      tt_response_data TYPE TABLE OF ty_response_data.
-
     METHODS delete REDEFINITION.
 
   PROTECTED SECTION.
@@ -34,8 +22,11 @@ CLASS cl_abapgit_res_repo IMPLEMENTATION.
 
     DATA lv_repo_key TYPE if_abapgit_persistence=>ty_value.
 
-    request->get_uri_attribute( EXPORTING name = 'key' mandatory = abap_true
-                                IMPORTING value = lv_repo_key ).
+    request->get_uri_attribute( EXPORTING
+                                  name = 'key'
+                                  mandatory = abap_true
+                                IMPORTING
+                                  value = lv_repo_key ).
 
     TRY.
         DATA(lo_repo) = cl_abapgit_repo_srv=>get_instance( )->get( lv_repo_key ).

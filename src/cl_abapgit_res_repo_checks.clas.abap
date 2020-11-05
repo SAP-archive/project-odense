@@ -36,20 +36,22 @@ CLASS cl_abapgit_res_repo_checks IMPLEMENTATION.
 
     DATA:
       lv_repo_key     TYPE if_abapgit_persistence=>ty_value,
-      lv_username     TYPE string,
       lv_service      TYPE string,
       lo_repo_online  TYPE REF TO cl_abapgit_repo_online.
 
     " Get repository key
-    request->get_uri_attribute( EXPORTING name = 'key' mandatory = abap_true
-                                IMPORTING value = lv_repo_key ).
+    request->get_uri_attribute( EXPORTING
+                                  name = 'key'
+                                  mandatory = abap_true
+                                IMPORTING
+                                  value = lv_repo_key ).
 
     " Get credentials from request header
-    lv_username = request->get_inner_rest_request( )->get_header_field( iv_name = 'Username' ).
+    DATA(lv_username) = request->get_inner_rest_request( )->get_header_field( 'Username' ).
 
     " Client encodes password with base64 algorithm
     DATA(lv_password) = cl_abapgit_res_util=>encode_password(
-          request->get_inner_rest_request( )->get_header_field( iv_name = 'Password' ) ).
+          request->get_inner_rest_request( )->get_header_field( 'Password' ) ).
 
     TRY.
 
@@ -75,7 +77,8 @@ CLASS cl_abapgit_res_repo_checks IMPLEMENTATION.
         ENDIF.
 
         " Check connection with git server
-        mo_repo_check_service->check_connection( io_repository = lo_repo_online iv_service = lv_service ).
+        mo_repo_check_service->check_connection( io_repository = lo_repo_online
+                                                 iv_service = lv_service ).
 
       CATCH cx_abapgit_exception INTO DATA(lx_abapgit_exception).
         DATA lv_http_status TYPE i.

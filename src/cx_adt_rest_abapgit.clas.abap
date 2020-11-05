@@ -105,11 +105,10 @@ CLASS cx_adt_rest_abapgit IMPLEMENTATION.
 
   METHOD raise_with_error.
 
-    DATA lx_error        TYPE REF TO cx_root.
     DATA lo_message      TYPE REF TO if_t100_message.
     DATA lo_next_message TYPE REF TO if_t100_message.
 
-    lx_error = ix_error.
+    DATA(lx_error) = ix_error.
     lo_message ?= ix_error.
 
     WHILE lx_error->previous IS BOUND.

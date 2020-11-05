@@ -37,13 +37,13 @@ CLASS cl_abapgit_res_repo_info_ext DEFINITION
 
   PRIVATE SECTION.
     DATA: mo_repo_auth_srv TYPE REF TO if_abapgit_repository_auth,
-          mt_branches TYPE if_abapgit_definitions=>ty_git_branch_list_tt.
+          mt_branches      TYPE if_abapgit_definitions=>ty_git_branch_list_tt.
 
     METHODS:
       get_repo_auth_service
         RETURNING VALUE(ro_repo_auth_service) TYPE REF TO if_abapgit_repository_auth,
       get_branches
-        IMPORTING iv_url                TYPE string
+        IMPORTING iv_url             TYPE string
         RETURNING VALUE(rt_branches) TYPE if_abapgit_definitions=>ty_git_branch_list_tt
         RAISING   cx_abapgit_exception.
 ENDCLASS.
@@ -60,8 +60,9 @@ CLASS cl_abapgit_res_repo_info_ext IMPLEMENTATION.
       ls_response_data TYPE ty_response_data.
 
     DATA(ls_requested_content_type) =
-      request->get_inner_rest_request( )->get_header_field( iv_name = if_http_header_fields=>content_type ).
+      request->get_inner_rest_request( )->get_header_field( if_http_header_fields=>content_type ).
 
+    " case co_content_type_request_v2 to handle externalRepositoryInfo in emf model for abapGit Repositories view.
     CASE ls_requested_content_type.
 
       WHEN co_content_type_request_v1.
@@ -126,7 +127,7 @@ CLASS cl_abapgit_res_repo_info_ext IMPLEMENTATION.
 
         " Set logon information if supplied
         IF ls_request_data-user     IS NOT INITIAL AND
-           ls_request_data-password IS NOT INITIAL.
+            ls_request_data-password IS NOT INITIAL.
           cl_abapgit_default_auth_info=>refresh( ).
           cl_abapgit_default_auth_info=>set_auth_info( iv_user     = ls_request_data-user
                                                        iv_password = ls_request_data-password ).
@@ -136,21 +137,9 @@ CLASS cl_abapgit_res_repo_info_ext IMPLEMENTATION.
         mo_repo_auth_srv = get_repo_auth_service( ).
         ls_response_data-access_mode = mo_repo_auth_srv->determine_access_level( ls_request_data-url ).
 
-        " Check whether two factor authentication is enabled
-        IF ls_response_data-access_mode <> 'PUBLIC' AND
-           ls_request_data-user IS NOT INITIAL AND
-           ls_request_data-password IS NOT INITIAL AND
-           mo_repo_auth_srv->is_2fa_required( iv_url         = ls_request_data-url
-                                              iv_username    = ls_request_data-user
-                                              iv_password    = ls_request_data-password
-                                              iv_trigger_sms = abap_false ) = abap_true.
-          cx_abapgit_exception=>raise( '2FA required' ).
-        ENDIF.
-
-
         " Retrieve list of branches for repo
         IF ls_response_data-access_mode = 'PUBLIC' OR
-          ( ls_response_data-access_mode = 'PRIVATE' AND
+            ( ls_response_data-access_mode = 'PRIVATE' AND
             ls_request_data-user         IS NOT INITIAL AND
             ls_request_data-password     IS NOT INITIAL ).
           mt_branches = get_branches( ls_request_data-url ).
@@ -158,7 +147,8 @@ CLASS cl_abapgit_res_repo_info_ext IMPLEMENTATION.
         ENDIF.
 
         " Prepare Response
-        response->set_body_data( content_handler = lo_response_content_handler data = ls_response_data ).
+        response->set_body_data( content_handler = lo_response_content_handler
+                                 data = ls_response_data ).
         response->set_status( cl_rest_status_code=>gc_success_ok ).
 
       CATCH cx_abapgit_exception INTO DATA(lx_abapgit_exception).
@@ -166,8 +156,7 @@ CLASS cl_abapgit_res_repo_info_ext IMPLEMENTATION.
         DATA lv_http_status TYPE i.
         " Check whether the exception occurred because of any authentication issues
         IF mo_repo_auth_srv->is_authorization_issue( EXPORTING  ix_abapgit_exception = lx_abapgit_exception
-                                                     IMPORTING ev_http_status = lv_http_status
-                                                      ).
+                                                     IMPORTING ev_http_status = lv_http_status ).
           mo_repo_auth_srv->handle_auth_exception( iv_http_status = lv_http_status
                                                    ix_abapgit_exception = lx_abapgit_exception ).
         ELSE.
